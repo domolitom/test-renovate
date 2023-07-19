@@ -47,7 +47,7 @@ apps:
     enabled: true
     protected: false
     chart: "kyverno/kyverno"
-    version: "2.5.5"
+    version: "2.7.5"
     wait: true
 
   policy-reporter:
