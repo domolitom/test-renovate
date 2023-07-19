@@ -56,4 +56,4 @@ apps:
     enabled: true
     protected: false
     chart: "policy-reporter/policy-reporter"
-    version: "2.10.3"
+    version: "2.19.4"
