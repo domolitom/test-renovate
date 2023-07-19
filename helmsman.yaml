@@ -1,0 +1,59 @@
+# version: v3.4.0
+
+# context defines the context of this Desired State File.
+# It is used to allow Helmsman identify which releases are managed by which DSF.
+# Therefore, it is important that each DSF uses a unique context.
+context: test-infra # defaults to "default" if not provided
+
+# metadata -- add as many key/value pairs as you want
+metadata:
+  org: "example.com"
+  maintainer: "k8s-admin (me@example.com)"
+  description: "example Desired State File for demo purposes."
+
+# define your environments and their k8s namespaces
+namespaces:
+  kyverno:
+    protected: true
+    limits:
+      - type: Container
+        default:
+          cpu: "300m"
+          memory: "200Mi"
+        defaultRequest:
+          cpu: "200m"
+          memory: "100Mi"
+      - type: Pod
+        max:
+          memory: "300Mi"
+
+# define any private/public helm charts repos you would like to get charts from
+# syntax: repo_name: "repo_url"
+# only private repos hosted in s3 buckets are now supported
+helmRepos:
+  kyverno: "https://kyverno.github.io/kyverno/"
+  policy-reporter: "https://kyverno.github.io/policy-reporter"
+  #myS3repo: "s3://my-S3-private-repo/charts"
+  #myGCSrepo: "gs://my-GCS-private-repo/charts"
+  #custom:  "https://$user:$pass@mycustomrepo.org"
+
+# define the desired state of your applications helm charts
+# each contains the following:
+
+apps:
+  kyverno:
+    priority: -5
+    namespace: "kyverno"
+    enabled: true
+    protected: false
+    chart: "kyverno/kyverno"
+    version: "2.5.5"
+    wait: true
+
+  policy-reporter:
+    priority: -1
+    namespace: "kyverno"
+    enabled: true
+    protected: false
+    chart: "policy-reporter/policy-reporter"
+    version: "2.10.3"
