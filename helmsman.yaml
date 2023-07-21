@@ -41,6 +41,15 @@ helmRepos:
 # each contains the following:
 
 apps:
+  kyverno1:
+    priority: -5
+    namespace: "kyverno"
+    enabled: true
+    protected: false
+    chart: "oci://registry.admin.ehealth.sundhed.dk/management/kyverno"
+    version: "2.5.5"
+    wait: true
+
   kyverno:
     priority: -5
     namespace: "kyverno"
