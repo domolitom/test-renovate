@@ -47,7 +47,7 @@ apps:
     enabled: true
     protected: false
     chart: "oci://registry.admin.ehealth.sundhed.dk/management/kyverno"
-    version: "2.5.5"
+    version: "2.6.5"
     wait: true
 
   kyverno:
